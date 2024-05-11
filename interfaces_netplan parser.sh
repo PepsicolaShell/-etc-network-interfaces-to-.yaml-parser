@@ -1,10 +1,8 @@
 #!/bin/bash
-#no se si queremos que las interfaces se llamen "eth0" por ejemplo o lo que pone
-#al lado de "name" (por ejemplo "PCE-Net"). En este script es el primer caso.
 
 
 #define /etc/network/interfaces route:
-interfaces="./interfaces"
+interfaces="/etc/network/interfaces"
 
 
 
@@ -77,3 +75,6 @@ grep -n "iface bond" $interfaces | while IFS=: read -r line_num line; do
 			"\n        fail-over-mac-policy: active"\
 			"\n        primary: $slave1" >> 01-network-manager-all.yaml
 done
+
+mv ./01-nnetwork-manager-all.yaml /etc/netplan
+netplan apply
